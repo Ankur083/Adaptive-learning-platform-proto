@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select Topic</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="login-bg">
+
+<div class="container">
+    <div class="left">
+        <h2>Select Topic</h2>
+
+        <select id="topic">
+            <option value="">-- Select Topic --</option>
+            <option value="Java">Java</option>
+            <option value="Python">Python</option>
+            <option value="DSA">DSA</option>
+        </select>
+
+        <button type="button" onclick="startQuizFromSelect()">
+            Start Quiz
+        </button>
+    </div>
+
+    <div class="right">
+        <h1>Adaptive Quiz</h1>
+        <p>Select a topic to begin.</p>
+    </div>
+</div>
+
+<!-- ✅ MUST be script.js -->
+<script src="script.js"></script>
+</body>
+</html>

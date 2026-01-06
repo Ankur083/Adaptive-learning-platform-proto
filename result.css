@@ -1,0 +1,202 @@
+/* ================= RESULT PAGE ================= */
+
+body {
+    background: linear-gradient(135deg, #6366f1, #9333ea);
+    min-height: 100vh;
+    font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.result-container {
+    max-width: 440px;
+    margin: 70px auto;
+    background: white;
+    border-radius: 26px;
+    padding: 42px 32px;
+    text-align: center;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.25);
+    animation: fadeInUp 0.8s ease;
+}
+
+/* ===== Celebration Icon ===== */
+.celebration {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 22px;
+}
+
+.circle {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #a78bfa, #0f0f11);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 55px;
+    color: white;
+    box-shadow: 0 15px 30px rgba(99,102,241,0.5);
+    animation: pop 0.6s ease;
+}
+
+/* ===== Score ===== */
+.score-label {
+    font-size: 15px;
+    color: #6b7280;
+    margin-top: 10px;
+}
+
+#scoreText {
+    font-size: 46px;
+    font-weight: bold;
+    color: #070708;
+    text-shadow: 0 0 10px rgba(99,102,241,0.35);
+    margin: 12px 0;
+}
+
+
+.congrats {
+    font-size: 28px;
+    font-weight: bold;
+    color: #111827;
+}
+
+.message {
+    color: #6b7280;
+    margin: 12px 0 22px;
+}
+
+/* ===== Points ===== */
+.points {
+    display: inline-block;
+    padding: 9px 18px;
+    background: linear-gradient(90deg, #ede9fe, #ddd6fe);
+    color: #171617;
+    border-radius: 22px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+/* ===== Next Button ===== */
+.next-btn {
+    width: 100%;
+    padding: 15px;
+    font-size: 16px;
+    border-radius: 16px;
+    border: none;
+    background: linear-gradient(135deg, #6366f1, #9333ea);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.next-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 25px rgba(99,102,241,0.5);
+}
+
+/* ================= LEVEL BADGE ================= */
+
+.level-badge {
+    display: inline-block;
+    margin: 12px 0 22px;
+    padding: 7px 20px;
+    border-radius: 22px;
+    font-weight: bold;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+
+/* Level Colors */
+.level-badge.Beginner {
+    background: linear-gradient(90deg, #22c55e, #86efac);
+    color: #064e3b;
+}
+
+.level-badge.Intermediate {
+    background: linear-gradient(90deg, #f97316, #fdba74);
+    color: #7c2d12;
+}
+
+.level-badge.Advanced {
+    background: linear-gradient(90deg, #ef4444, #fca5a5);
+    color: #7f1d1d;
+}
+
+/* ================= COURSE RECOMMENDATION ================= */
+
+.recommendation-box {
+    margin-top: 28px;
+    padding: 22px;
+    background: linear-gradient(135deg, #eef2ff, #faf5ff);
+    border-radius: 18px;
+    border-left: 6px solid #6366f1;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+    animation: fadeIn 1s ease;
+}
+
+.recommendation-box h3 {
+    margin-bottom: 16px;
+    font-size: 19px;
+    color: #4338ca;
+    font-weight: bold;
+}
+
+/* Recommendation rows */
+.recommendation-box p {
+    margin: 12px 0;
+    padding: 12px 14px;
+    background: white;
+    border-radius: 12px;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.recommendation-box p:hover {
+    transform: translateX(5px);
+}
+
+/* Links */
+.recommendation-box a {
+    color: #1d4ed8;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.recommendation-box a:hover {
+    text-decoration: underline;
+}
+
+/* ================= ANIMATIONS ================= */
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0.8);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

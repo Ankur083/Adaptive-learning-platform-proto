@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | Adaptive Learning</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body class="dashboard-bg">
+
+
+
+
+<!-- ================= NAVBAR ================= -->
+<nav class="navbar">
+    <div class="nav-left">
+        <h2><i class="fas fa-brain"></i> Adaptive Learner</h2>
+    </div>
+    <div class="nav-right">
+        <span id="usernameDisplay">Welcome, User</span>
+        <button class="btn-logout" onclick="logout()">Logout</button>
+    </div>
+</nav>
+
+
+
+
+<!-- ================= DASHBOARD ================= -->
+<div class="dashboard-container">
+
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar">
+
+        <div class="user-profile">
+            <div class="avatar">
+                <i class="fas fa-user"></i>
+            </div>
+            <h3 id="userFullName">User</h3>
+            <p class="user-level">
+                Level: <span id="userLevel">Beginner</span>
+            </p>
+        </div>
+
+        <div class="menu">
+            <a class="active"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="topic.html">
+                <button style="
+                    padding: 12px;
+                    font-size: 16px;
+                    border-radius: 8px;
+                    background: #111827;
+                    color: white;
+                    border: none;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;">
+                    <i class="fas fa-book" style="font-size:22px;"></i>
+                    Topics
+                </button>
+            </a>
+
+            <a><i class="fas fa-chart-line"></i> Progress</a>
+            <a><i class="fas fa-question-circle"></i> My Quizzes</a>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <h4>Quizzes Taken</h4>
+                <p id="quizzesCount">0</p>
+            </div>
+            <div class="stat-item">
+                <h4>Previous Score</h4>
+                <p id="avgScore">0%</p>
+            </div>
+            <!-- <div class="stat-item">
+                <h4>Learning Streak</h4>
+                <p id="streak">0 days</p>
+            </div> -->
+        </div>
+
+    </aside>
+
+
+
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="main-content">
+
+        <!-- Welcome -->
+        <section class="welcome-section">
+            <h1>Welcome back, <span id="greetingName">Learner</span>!</h1>
+            <p>Select a topic to start your adaptive quiz.</p>
+        </section>
+
+        <!-- Quick Stats -->
+        <section class="quick-stats">
+            <div class="stat-card">
+                <i class="fas fa-clock"></i>
+                <div>
+                    <h3>Time Spent</h3>
+                    <p id="timeSpent">0h</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <i class="fas fa-trophy"></i>
+                <div>
+                    <h3>Current Level</h3>
+                    <p id="currentLevel">Just Started</p>
+                </div>
+            </div>
+
+            <div class="stat-card">
+                <i class="fas fa-star"></i>
+                <div>
+                    <h3>Learning Streak</h3>
+                    <p id="streak">0 days</p>
+                </div>
+                 
+            </div>
+
+        </section>
+
+
+        <!-- Topics -->
+        <section class="topics-section">
+            <h2>Available Topics</h2>
+            <div class="topics-grid" id="topicsGrid"></div>
+
+            <div style="display:flex;justify-content:center;margin-top:20px;">
+                <a href="topic.html">
+                    <button style="
+                        padding: 12px 24px;
+                        font-size: 16px;
+                        border-radius: 8px;
+                        background: #111827;
+                        color: white;
+                        border: none;
+                        cursor: pointer;">
+                        Give Test
+                    </button>
+                </a>
+            </div>
+        </section>
+
+
+
+        <!-- ================= RECENT ACTIVITY ================= -->
+        <section class="activity-section">
+            <h2>Recent Activity</h2>
+            <div class="activity-list" id="activityList"></div>
+        </section>
+
+
+
+        <!-- ================= LAST SUGGESTED COURSE (NEW) ================= -->
+        <section class="activity-section">
+            <h2>Last Suggested Course</h2>
+            <div class="activity-list" id="courseSuggestion">
+                <!-- Loaded via JS -->
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+
+
+<!-- ================= SCRIPTS ================= -->
+<script src="script.js"></script>
+
+<script>
+
+
+
+/* ================= LOAD LAST SUGGESTED COURSE ================= */
+function loadLastRecommendation() {
+  const box = document.getElementById("courseSuggestion");
+  const data = JSON.parse(localStorage.getItem("lastRecommendation"));
+
+  console.log("Loaded recommendation:", data); // DEBUG
+
+  if (!data || !data.doc) {
+    box.innerHTML = "<p>No course suggested yet.</p>";
+    return;
+  }
+
+  box.innerHTML = `
+    <div class="activity-item">
+      <strong>${data.topic} (${data.level})</strong>
+      <p>Last Test Score: ${data.score}%</p>
+      <div>${data.doc}</div>
+      <div>${data.video}</div>
+      <br>
+      <small>Suggested on: ${data.date}</small>
+    </div>
+  `;
+}
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    if (typeof loadDashboardData === "function") loadDashboardData();
+    if (typeof loadTopics === "function") loadTopics();
+    if (typeof loadRecentActivity === "function") loadRecentActivity();
+    loadLastRecommendation(); // ✅ ALWAYS runs
+});
+
+</script>
+
+</body>
+</html>

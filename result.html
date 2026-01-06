@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Result | Adaptive Learning</title>
+    <link rel="stylesheet" href="result.css" />
+  </head>
+
+  <body class="quiz-bg">
+    <div class="result-container">
+      <h2>Your Score</h2>
+      <h1 id="scoreText">0%</h1>
+
+      <div id="levelBadge">Beginner</div>
+      <p id="userMessage"></p>
+
+      <div id="recommendationBox">
+        <h3>📘 Recommended Learning Resources</h3>
+        <p id="docLink"></p>
+        <p id="videoLink"></p>
+      </div>
+      
+
+      <button onclick="goDashboard()">Back to Dashboard</button>
+    </div>
+
+    <script>
+      function saveLastRecommendation(data) {
+        localStorage.setItem("lastRecommendation", JSON.stringify(data));
+        console.log("Saved recommendation:", data); // DEBUG
+      }
+
+      /* ================= BASIC DATA ================= */
+      const score = Number(localStorage.getItem("score")) || 0;
+      const topic = localStorage.getItem("selectedTopic") || "Java";
+      const username = localStorage.getItem("currentUser") || "Student";
+
+      /* ================= LEVEL LOGIC ================= */
+      let level = "Beginner";
+      if (score >= 40 && score <= 70) level = "Intermediate";
+      if (score > 70) level = "Advanced";
+
+      document.getElementById("scoreText").innerText = score + "%";
+      document.getElementById("levelBadge").innerText = level;
+      document.getElementById(
+        "userMessage"
+      ).innerText = `Great job, ${username}! You are at ${level} level in ${topic}.`;
+
+      /* ================= SAVE FUNCTION ================= */
+      function saveLastRecommendation(topic, level, score, docHTML, videoHTML) {
+        localStorage.setItem(
+          "lastRecommendation",
+          JSON.stringify({
+            topic,
+            level,
+            score,
+            doc: docHTML,
+            video: videoHTML,
+            date: new Date().toLocaleString(),
+          })
+        );
+      }
+
+      /* ================= RECOMMENDATION LOGIC ================= */
+      let docHTML = "";
+      let videoHTML = "";
+
+      /* -------- BEGINNER -------- */
+      if (level === "Beginner") {
+        if (topic === "Java") {
+          docHTML = `📖 <a href="https://www.w3schools.com/java/" target="_blank">W3Schools Java</a>`;
+          videoHTML = `🎥 <a href="https://www.youtube.com/watch?v=BGTx91t8q50" target="_blank">Apna College Java</a>`;
+        }
+        if (topic === "Python") {
+          docHTML = `📖 <a href="https://www.w3schools.com/python/" target="_blank">W3Schools Python</a>`;
+          videoHTML = `🎥 <a href="https://www.youtube.com/watch?v=gfDE2a7MKjA" target="_blank">Apna College Python</a>`;
+        }
+        if (topic === "DSA") {
+          docHTML = `📖 <a href="https://www.w3schools.com/dsa/" target="_blank">W3Schools DSA</a>`;
+          videoHTML = `🎥 <a href="https://www.youtube.com/watch?v=8hly31xKli0" target="_blank">DSA Beginner</a>`;
+        }
+      }
+
+      /* -------- INTERMEDIATE -------- */
+      if (level === "Intermediate") {
+        if (topic === "Java") {
+          docHTML = `📘 <a href="https://www.programiz.com/java-programming" target="_blank">Programiz Java</a>`;
+          videoHTML = `🎥 <a href="https://www.youtube.com/playlist?list=PLsyeobzWxl7pe_IiTfNyr55kwJPWbgxB5" target="_blank">Telusko Java</a>`;
+        }
+        if (topic === "Python") {
+          docHTML = `📘 <a href="https://www.programiz.com/python-programming" target="_blank">Programiz Python</a>`;
+          videoHTML = `🎥 <a href="https://www.youtube.com/playlist?list=PLsyeobzWxl7poL9JTVyndKe62ieoN-MZ3" target="_blank">Telusko Python</a>`;
+        }
+        if (topic === "DSA") {
+          docHTML = `📘 <a href="https://www.programiz.com/dsa" target="_blank">Programiz DSA</a>`;
+          videoHTML = `🎥 <a href="https://www.youtube.com/@CoderArmy9/playlists" target="_blank">Coder Army DSA</a>`;
+        }
+      }
+
+      /* -------- ADVANCED -------- */
+      if (level === "Advanced") {
+        if (topic === "Java") {
+          docHTML = `📘 <a href="https://docs.oracle.com/javase/tutorial/" target="_blank">Java Official Docs</a>`;
+          videoHTML = `🎥 <a href="https://www.youtube.com/playlist?list=PLu0W_9lII9agS67Uits0UnJyrYiXhDS6q" target="_blank">CodeWithHarry Java</a>`;
+        }
+        if (topic === "Python") {
+          docHTML = `📘 <a href="https://docs.python.org/3/tutorial/" target="_blank">Python Official Docs</a>`;
+          videoHTML = `🎥 <a href="https://www.youtube.com/playlist?list=PLu0W_9lII9ah7DDtYtflgwMwpT3xmjXY9" target="_blank">CodeWithHarry Python</a>`;
+        }
+        if (topic === "DSA") {
+          docHTML = `📘 <a href="https://www.geeksforgeeks.org/data-structures/" target="_blank">GFG DSA</a>`;
+          videoHTML = `🎥 <a href="https://www.youtube.com/playlist?list=PLu0W_9lII9agHTbDTw4U9G7sQ6y9pQ1nM" target="_blank">CodeWithHarry DSA</a>`;
+        }
+      }
+
+      /* ================= SHOW + SAVE ================= */
+      document.getElementById("docLink").innerHTML = docHTML;
+      document.getElementById("videoLink").innerHTML = videoHTML;
+      saveLastRecommendation(topic, level, score, docHTML, videoHTML);
+
+      /* ================= NAV ================= */
+      function goDashboard() {
+        window.location.href = "dashboard.html";
+      }
+      // 🔥 FINAL SAVE (runs for ALL levels & subjects)
+      saveLastRecommendation({
+        topic: topic,
+        level: level,
+        score: score,
+        doc: document.getElementById("docLink").innerHTML,
+        video: document.getElementById("videoLink").innerHTML,
+        date: new Date().toLocaleString(),
+      });
+      console.log(
+        "FINAL doc HTML:",
+        document.getElementById("docLink").innerHTML
+      );
+      console.log(
+        "FINAL video HTML:",
+        document.getElementById("videoLink").innerHTML
+      );
+
+      localStorage.setItem(
+        "lastRecommendation",
+        JSON.stringify({
+          topic: topic,
+          level: level,
+          score: score,
+          doc: document.getElementById("docLink").innerHTML,
+          video: document.getElementById("videoLink").innerHTML,
+          date: new Date().toLocaleString(),
+        })
+      );
+
+      console.log(
+        "STORED lastRecommendation:",
+        JSON.parse(localStorage.getItem("lastRecommendation"))
+      );
+      function loadLastRecommendation() {
+        const box = document.getElementById("courseSuggestion");
+        const raw = localStorage.getItem("lastRecommendation");
+
+        console.log("RAW from storage:", raw);
+
+        if (!raw) {
+          box.innerHTML = "<p>No course suggested yet.</p>";
+          return;
+        }
+
+        const data = JSON.parse(raw);
+
+        box.innerHTML = `
+    <div class="activity-item">
+      <strong>${data.topic} (${data.level})</strong>
+      <p>Score: ${data.score}%</p>
+      <div>${data.doc}</div>
+      <div>${data.video}</div>
+      <small>${data.date}</small>
+    </div>
+  `;
+      }
+    </script>
+  </body>
+</html>

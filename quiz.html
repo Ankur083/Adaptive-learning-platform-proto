@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz</title>
+    <link rel="stylesheet" href="quiz.css">
+</head>
+<body class="quiz-bg">
+
+<div class="quiz-container">
+
+    <p class="progress-text">
+        Question <span id="qNo"></span>
+    </p>
+
+    <div class="progress-bar">
+        <div id="progressFill"></div>
+    </div>
+
+    <div class="question-card">
+        <h3 id="questionText"></h3>
+        <div id="options"></div>
+    </div>
+
+    <button class="next-btn" onclick="nextQuestion()">Next</button>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
